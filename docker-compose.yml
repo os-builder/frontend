@@ -1,0 +1,32 @@
+version: "3"
+services:
+
+  app:
+    build: '.'
+    ports:
+      - '8000:8000'
+    restart: 'always'
+
+  database:
+    image: 'mongo'
+    #ports:
+    #  - '27017:27017'
+    restart: 'always'
+    volumes:
+      - 'vol-database:/var/lib/mongodb'
+
+  storage:
+    image: 'minio/minio'
+    command: 'server /data'
+    #ports:
+    #  - '9000:9000'
+    restart: 'always'
+    volumes:
+      - 'vol-storage:/data'
+    environment:
+      MINIO_ACCESS_KEY: th7Mxmr9w8FcUt3pscur1BjfOpD4EIOWmPUhw3MRaCaNQBucUfDW76C5FGOEF0TN
+      MINIO_SECRET_KEY: ALek6Zz0r5sJc108AcrIolvGReFdmx13xXmZgpMTsljo1HBkkxY9AlamL3ORsxz6
+
+volumes:
+  vol-database:
+  vol-storage:
